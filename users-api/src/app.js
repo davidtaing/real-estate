@@ -15,5 +15,13 @@ app.use(express.json());
 // Routes
 app.use(routes);
 
+/**
+ * Default Error Handler
+ * Note: More Specific Errors Belong in Route Handlers
+ */
+app.use((err, req, res, next) => {
+  res.status(500).json({ status: 500, message: "Internal Server Error"});
+})
+
 // Server Listen
 app.listen(3000, () => console.log("Listening on Port: 3000."));
