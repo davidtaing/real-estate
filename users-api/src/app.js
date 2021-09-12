@@ -1,12 +1,12 @@
 import express from "express";
-import dotenv from "dotenv";
+
+import config from "./config/config";
 
 import routes from "./routes/routes";
 
 // Initialization
-dotenv.config();
+const { PORT } = config;
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 // Middlewares
 app.use(express.urlencoded({ extended: false }));
@@ -23,5 +23,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ status: 500, message: "Internal Server Error"});
 })
 
+console.log(PORT);
+
 // Server Listen
-app.listen(3000, () => console.log("Listening on Port: 3000."));
+app.listen(PORT, () => console.log(`Listening on Port: ${PORT}`));
