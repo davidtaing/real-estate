@@ -54,4 +54,13 @@ describe("User Registration", () => {
          expect(res).to.have.status(204);
       });
   })
+
+  it("Register Same User Again: handle auth/email-already-in-use error appropiately and respond with 204 status.", async () => {
+    chai.request(server)
+      .post("/register")
+      .send(DEFAULT_TEST_USER)
+      .end((err, res) => {
+         expect(res).to.have.status(204);
+      });
+  })
 })
