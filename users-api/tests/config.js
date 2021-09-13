@@ -1,3 +1,5 @@
+import config from "../src/config/config";
+
 const { projectId : FIREBASE_PROJECT_ID } = config.FIREBASE_CONFIGS;
 
 // DELETE URL: Removes all user accounts in emulator database.
@@ -7,4 +9,4 @@ export const WIPE_USERS_URL = `http://localhost:9099/emulator/v1/projects/${FIRE
 export const DEFAULT_TEST_USER = {
   email: "hello@fakewebsite.com",
   password: "12345678",
-}
+};

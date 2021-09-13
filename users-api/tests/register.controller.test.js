@@ -2,7 +2,6 @@ import chai from "chai";
 import chaiHttp from "chai-http";
 import fetch from "cross-fetch";
 
-import config from "../src/config/config";
 import server from "../src/app";
 
 import { DEFAULT_TEST_USER, WIPE_USERS_URL } from "./config";
