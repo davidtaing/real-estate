@@ -51,7 +51,7 @@ describe("User Registration", () => {
       .post("/register")
       .send(DEFAULT_TEST_USER)
       .end((err, res) => {
-         expect(res).to.have.status(204);
+        expect(res).to.have.status(204);
       });
   })
 
