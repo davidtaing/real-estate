@@ -19,16 +19,13 @@ const loginController = async (req, res, next) => {
   } catch (err) {
     console.log(err.code);
 
+    // For more info on Firebase Error Codes
+    // https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#signinwithemailandpassword
     switch (err.code) {
       case "auth/user-not-found":
       case "auth/wrong-password":
-      case "auth/user-not-found":
-        return res.status(401).json({ status: 401, message: "Unauthorized"});
-      case "auth/missing-email":
-      case "auth/missing-password":
-      case "auth/invalid-password":
       case "auth/invalid-email":
-        return res.status(400).json({ status: 400, message: "Bad Request"});
+          return res.status(401).json({ status: 401, message: "Unauthorized: Invalid Email or Password."});
       default:
         return next(err);
     }
