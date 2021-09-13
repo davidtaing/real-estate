@@ -46,7 +46,7 @@ describe("User Registration", () => {
     }
   });
 
-  it("Should Register User and Return a 204 Status Code", async () => {
+  it("Register User: successfully register new user and respond with 204 status code.", async () => {
     chai.request(server)
       .post("/register")
       .send(DEFAULT_TEST_USER)
