@@ -1,9 +1,18 @@
-const loginController = (req, res, next) => {
+// Google Firebase
+import { signInWithEmailAndPassword } from "firebase/auth";
+
+// Local auth object
+import auth from "../firebase/auth";
+console.log(auth);
+
+const loginController = async (req, res, next) => {
   try {
-    // Sanitize and Validate Input
+    let { email, password } = req.body;
+
+    // TODO Sanitize and Validate Input
 
     // Call Firebase
-    let jwt = null;
+    let jwt = await signInWithEmailAndPassword(auth, email, password);
     
     // Return HTTP 200 & JWT Token if Successful
     res.status(200).json(jwt);
