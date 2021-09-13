@@ -3,7 +3,6 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 
 // Local auth object
 import auth from "../firebase/auth";
-console.log(auth);
 
 const loginController = async (req, res, next) => {
   try {
