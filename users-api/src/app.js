@@ -27,3 +27,6 @@ console.log(process.env.NODE_ENV);
 
 // Server Listen
 app.listen(PORT, () => console.log(`Listening on Port: ${PORT}`));
+
+// Export for Testing
+export default app;
