@@ -19,7 +19,6 @@ const { expect } = chai;
  *     - Empty user object
  * Before: Wipe users database again
  */
-
 describe("User Registration", () => {
   // Clear user accounts before running tests
   before(async () => {
