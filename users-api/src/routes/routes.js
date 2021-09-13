@@ -1,5 +1,9 @@
 import express from "express";
 
+// Controllers
+import loginController from "../controllers/login.controller";
+import registerController from "../controllers/register.controller";
+
 const router = express.Router();
 
 /**
@@ -9,6 +13,7 @@ const router = express.Router();
  * @response: 400 - Bad Request (Failed Input Validation)
  * @response: 401 - Unauthorized (Invalid Credentials)
  */
+router.post("/login", loginController);
 
 /**
  * POST /register
@@ -16,5 +21,7 @@ const router = express.Router();
  * @response: 204 - No Content
  * @response: 400 - Bad Request
  */
+router.post("/register", registerController);
+
 
 export default router;
