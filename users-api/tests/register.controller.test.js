@@ -63,4 +63,19 @@ describe("User Registration", () => {
          expect(res).to.have.status(204);
       });
   });
+
+  it("Invalid Email Input: respond with 400 status.", () => {
+    let user = {
+      // Create invalid email string
+      email: '@' + DEFAULT_TEST_USER.email,
+      password: DEFAULT_TEST_USER.password,
+    };
+
+    chai.request(server)
+      .post("/register")
+      .send(user)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+     });
+  });
 })
