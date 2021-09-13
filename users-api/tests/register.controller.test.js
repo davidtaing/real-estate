@@ -78,4 +78,19 @@ describe("User Registration", () => {
         expect(res).to.have.status(400);
      });
   });
+
+  it("Empty User Object: respond with 400 status.", () => {
+    // Invalid user object
+    let user = {
+      email: "",
+      password: "",
+    };
+
+    chai.request(server)
+      .post("/register")
+      .send(user)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+     });
+  });
 })
