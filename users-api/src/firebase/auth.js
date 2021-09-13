@@ -1,6 +1,8 @@
 import { getAuth, connectAuthEmulator } from "firebase/auth";
 
-const auth = getAuth();
+import app from "./firebase";
+
+const auth = getAuth(app);
 if (process.env.NODE_ENV === "development") {
   connectAuthEmulator(auth, "http://localhost:9099");
 }
