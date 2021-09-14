@@ -1,8 +1,8 @@
-import cookieParser from "cookie-parser";
 import express from "express";
 import helmet from "helmet";
 import xss from "xss-clean";
 import cookieParser from "cookie-parser";
+import csurf from "csurf";
 
 import config from "./config/config";
 
@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(xss());
 app.use(cookieParser());
+app.use(csurf());
 
 // Routes
 app.use(routes);
