@@ -37,21 +37,19 @@ describe("Testing User Login", function () {
     await flushFirebaseUsers();
   });
   
-
-  // Copy pasted from register.controller.test.js
-  // TODO Remove when Login Tests are added
-  describe("Successful User Registration", () => {
-    it("Register User: successfully register new user and respond with 204 status code.", async () => {
+  // login success: return 200 status and auth tokens
+  describe("Successful Login", () => {
+    it("Valid User Credentials", () => {
       chai.request(server)
-        .post("/register")
+        .post("/login")
         .send(this.user)
         .end((err, res) => {
-          expect(res).to.have.status(204);
-        });
+          expect(err).to.be.null;
+          expect(res).to.have.status(200);
+      });
     });
   });
-  // login success: return 200 status and auth tokens
-
+  
   // invalid password: return 401 status
 
   // user doesn't exist: return 401 status
