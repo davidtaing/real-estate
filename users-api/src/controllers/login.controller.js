@@ -9,6 +9,9 @@ const loginController = async (req, res, next) => {
     let { email, password } = req.body;
 
     // TODO Sanitize and Validate Input
+    if (!email || !password) {
+      throw Error("400");
+    }
 
     // Call Firebase
     const { user } = (await signInWithEmailAndPassword(auth, email, password));
@@ -18,6 +21,8 @@ const loginController = async (req, res, next) => {
     res.status(200).json(jwt);
   } catch (err) {
     console.log(err.code);
+    if (err.message === "400")
+      return res.status(400).json({ status: 400, message: "Bad Request"});
 
     // For more info on Firebase Error Codes
     // https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#signinwithemailandpassword

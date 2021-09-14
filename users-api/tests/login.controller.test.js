@@ -80,7 +80,6 @@ describe("Testing User Login", function () {
       });
     });
 
-    // invalid body (missing email): return 400 status
     it("Empty Email & Password Strings: respond with 400 status.", (done) => {
       this.user = {
         email: "",
@@ -92,6 +91,22 @@ describe("Testing User Login", function () {
         .send(this.user)
         .end((err, res) => {
           expect(res).to.have.status(400);
+          done();
+       });
+    });
+
+    
+    it("Garbled Email & Password Strings: respond with 401 status.", (done) => {
+      this.user = {
+        email: "werihuoaweiuhawe",
+        password: "serfoijweroijeram;oisfr",
+      };
+  
+      chai.request(server)
+        .post("/login")
+        .send(this.user)
+        .end((err, res) => {
+          expect(res).to.have.status(401);
           done();
        });
     });
