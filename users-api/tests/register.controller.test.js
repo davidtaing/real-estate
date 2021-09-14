@@ -32,25 +32,25 @@ describe("Testing User Registration", function () {
   });
 
   describe("Successful User Registration", () => {
-    it("Register User: successfully register new user and respond with 204 status code.", async (done) => {
+    it("Register User: successfully register new user and respond with 204 status code.", async () => {
       chai.request(server)
         .post("/register")
         .send(this.user)
         .end((err, res) => {
           expect(res).to.have.status(204);
-          done();
+          resolve();
         });
     });
   });
 
   describe("Failed User Registration", () => {
-    it("Register Same User Again: handle auth/email-already-in-use error appropiately and respond with 204 status.", async (done) => {
+    it("Register Same User Again: handle auth/email-already-in-use error appropiately and respond with 204 status.", async () => {
       chai.request(server)
         .post("/register")
         .send(this.user)
         .end((err, res) => {
           expect(res).to.have.status(204);
-          done();
+          resolve();
         });
     });
   
