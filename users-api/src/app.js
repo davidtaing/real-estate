@@ -1,4 +1,5 @@
 import express from "express";
+import helmet from "helmet";
 
 import config from "./config/config";
 
@@ -9,6 +10,7 @@ const { PORT } = config;
 const app = express();
 
 // Middlewares
+app.use(helmet());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
