@@ -53,11 +53,8 @@ describe("Testing User Registration", function () {
     });
   
     it("Invalid Email Input: respond with 400 status.", () => {
-      this.user = {
-        // Create invalid email string
-        email: '@' + this.user.email,
-        password: this.user.password,
-      };
+      // Set Invalid Email
+      this.user.email = "@" + this.user.email;
   
       chai.request(server)
         .post("/register")
