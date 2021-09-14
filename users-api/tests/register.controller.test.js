@@ -75,8 +75,20 @@ describe("Testing User Registration", function () {
        });
     });
 
-    // TODO
-    it("Garbled Email And Password String");
+    it("Garbled Email And Password String: Get 400 Status", (done) => {
+      this.user = {
+        email: "werihuoaweiuhawe",
+        password: "serfoijweroijeram;oisfr",
+      };
+  
+      chai.request(server)
+        .post("/register")
+        .send(this.user)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          done();
+       });
+    });
 
     // TODO
     it("Garbled Email String");
