@@ -93,7 +93,7 @@ describe("Testing User Login", function () {
 
     
     // invalid body (empty object): return 400 status
-    it("Empty User Object: respond with 400 status.", () => {
+    it("Empty User Object: respond with 400 status.", (done) => {
       this.user = {};
   
       chai.request(server)
@@ -101,6 +101,7 @@ describe("Testing User Login", function () {
         .send(this.user)
         .end((err, res) => {
           expect(res).to.have.status(400);
+          done();
        });
     });
   });
