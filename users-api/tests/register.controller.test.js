@@ -23,6 +23,10 @@ describe("Testing User Registration", () => {
     await flushFirebaseUsers();
   });
 
+  beforeEach(() => {
+    this.user = DEFAULT_TEST_USER();
+  });
+
   after(async () => {
     await flushFirebaseUsers();
   });
@@ -31,7 +35,7 @@ describe("Testing User Registration", () => {
     it("Register User: successfully register new user and respond with 204 status code.", async () => {
       chai.request(server)
         .post("/register")
-        .send(DEFAULT_TEST_USER)
+        .send(this.user)
         .end((err, res) => {
           expect(res).to.have.status(204);
         });
@@ -42,22 +46,22 @@ describe("Testing User Registration", () => {
     it("Register Same User Again: handle auth/email-already-in-use error appropiately and respond with 204 status.", async () => {
       chai.request(server)
         .post("/register")
-        .send(DEFAULT_TEST_USER)
+        .send(this.user)
         .end((err, res) => {
           expect(res).to.have.status(204);
         });
     });
   
     it("Invalid Email Input: respond with 400 status.", () => {
-      let user = {
+      this.user = {
         // Create invalid email string
-        email: '@' + DEFAULT_TEST_USER.email,
-        password: DEFAULT_TEST_USER.password,
+        email: '@' + this.user.email,
+        password: this.user.password,
       };
   
       chai.request(server)
         .post("/register")
-        .send(user)
+        .send(this.user)
         .end((err, res) => {
           expect(res).to.have.status(400);
        });
@@ -65,14 +69,14 @@ describe("Testing User Registration", () => {
   
     it("Empty User Object: respond with 400 status.", () => {
       // Invalid user object
-      let user = {
+      this.user = {
         email: "",
         password: "",
       };
   
       chai.request(server)
         .post("/register")
-        .send(user)
+        .send(this.user)
         .end((err, res) => {
           expect(res).to.have.status(400);
        });
