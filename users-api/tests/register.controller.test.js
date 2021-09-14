@@ -9,13 +9,21 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 /**
- * Before: Wipe users database
+ * Before: 
+ *     - Flush Users From Database
  * Tests:
- *     - Succesfully register user
- *     - Reregister same user with same credentials as previous test
- *     - Invalid email
- *     - Empty user object
- * Before: Wipe users database again
+ *     - Succesfully Register User
+ *     - Reregister Same User with Same Credentials
+ *     - Invalid Email String
+ *     - Garbled Email & Password Strings
+ *     - Garbled Email String
+ *     - Empty Email & Password Strings
+ *     - Empty Email String
+ *     - Empty Password String
+ *     - User Object is Null
+ *     - User Object is Empty
+ * After: 
+ *     - Flush Users From Database
  */
 describe("Testing User Registration", function () {
   // Clear user accounts before and after running tests
@@ -32,7 +40,7 @@ describe("Testing User Registration", function () {
   });
 
   describe("Successful User Registration", () => {
-    it("Register User: successfully register new user and respond with 204 status code.", (done) => {
+    it("Successfully Register User: Get 204 Status", (done) => {
       chai.request(server)
         .post("/register")
         .send(this.user)
@@ -44,7 +52,7 @@ describe("Testing User Registration", function () {
   });
 
   describe("Failed User Registration", () => {
-    it("Register Same User Again: handle auth/email-already-in-use error appropiately and respond with 204 status.", (done) => {
+    it("Register Same User Again: Get 204 Status", (done) => {
       chai.request(server)
         .post("/register")
         .send(this.user)
@@ -54,7 +62,7 @@ describe("Testing User Registration", function () {
         });
     });
 
-    it("Invalid Email Input: respond with 400 status.", (done) => {
+    it("Invalid Email String: Get 400 Status.", (done) => {
       // Set invalid email. Should be something like "@email@email.com"
       this.user.email = "@" + this.user.email;
   
@@ -66,8 +74,17 @@ describe("Testing User Registration", function () {
           done();
        });
     });
+
+    // TODO
+    it("Garbled Email And Password String");
+
+    // TODO
+    it("Garbled Email String");
+    
+    // TODO
+    it("Garbled Password String");
   
-    it("Empty Email & Password Strings: respond with 400 status.", (done) => {
+    it("Empty Email & Password Strings: Get 400 Status.", (done) => {
       this.user = {
         email: "",
         password: "",
@@ -82,7 +99,7 @@ describe("Testing User Registration", function () {
        });
     });
 
-    it("Empty Email String: respond with 400 status.", (done) => {
+    it("Empty Email String: Get 400 status.", (done) => {
       this.user.email = "";
   
       chai.request(server)
@@ -94,7 +111,7 @@ describe("Testing User Registration", function () {
        });
     });
 
-    it("Empty Password String: respond with 400 status.", (done) => {
+    it("Empty Password String: Get 400 status.", (done) => {
       this.user.password = "";
   
       chai.request(server)
@@ -106,7 +123,7 @@ describe("Testing User Registration", function () {
        });
     });
 
-    it("Null User Object: respond with 400 status.", (done) => {
+    it("User Object is Null: Get 400 status.", (done) => {
       this.user = null;
   
       chai.request(server)
@@ -117,5 +134,8 @@ describe("Testing User Registration", function () {
           done();
        });
     });
+
+    // TODO
+    it("User Object is Empty Object")
   });
 })
