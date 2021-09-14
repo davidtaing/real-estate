@@ -1,29 +1,12 @@
 import chai from "chai";
 import chaiHttp from "chai-http";
-import fetch from "cross-fetch";
-
 import server from "../src/app";
 
-import { DEFAULT_TEST_USER, WIPE_USERS_URL } from "./config";
+import { DEFAULT_TEST_USER } from "./config";
+import { flushFirebaseUsers } from "./test-utils";
 
 chai.use(chaiHttp);
 const { expect } = chai;
-
-const flushUsers = async () => {
-  try {
-    console.log("Reset test database: deleting all users.");
-
-    const result = await fetch(WIPE_USERS_URL, {
-      method: "DELETE",
-    });
-    console.log("Sucessfully reset test users database.");
-    
-    return result;
-  } catch (err) {
-    console.log("Failed to reset test users database.");
-    console.error(err);
-  }
-}
 
 /**
  * Before: Wipe users database
@@ -37,11 +20,11 @@ const flushUsers = async () => {
 describe("Testing User Registration", () => {
   // Clear user accounts before and after running tests
   before(async () => {
-    await flushUsers();
+    await flushFirebaseUsers();
   });
 
   after(async () => {
-    await flushUsers();
+    await flushFirebaseUsers();
   });
 
   describe("Successful User Registration", () => {
