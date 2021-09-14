@@ -2,7 +2,7 @@ import fetch from "cross-fetch";
 import chai from "chai";
 import chaiHttp from "chai-http";
 
-import { WIPE_USERS_URL, DEFAULT_TEST_USER } from "./config";
+import { WIPE_USERS_URL, getDefaultUser } from "./config";
 import server from "../src/app";
 
 chai.use(chaiHttp);
@@ -23,7 +23,7 @@ export const registerDefaultUser = async () => {
     console.log("Registering Default User.");
     chai.request(server)
       .post("/register")
-      .send(DEFAULT_TEST_USER());
+      .send(getDefaultUser());
   } catch (err) {
     console.log("Failed to reset test users database.");
     console.error(err);
