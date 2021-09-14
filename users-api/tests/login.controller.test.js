@@ -80,6 +80,19 @@ describe("Testing User Login", function () {
       });
     });
 
+    it("Malformed Email Address: respond with 401 status.", (done) => {
+      // Set invalid email. Should be something like "@email@email.com"
+      this.user.email = "@" + this.user.email;
+  
+      chai.request(server)
+        .post("/login")
+        .send(this.user)
+        .end((err, res) => {
+          expect(res).to.have.status(401);
+          done();
+       });
+    });
+
     it("Empty Email & Password Strings: respond with 400 status.", (done) => {
       this.user = {
         email: "",
