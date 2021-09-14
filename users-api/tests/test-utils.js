@@ -20,12 +20,11 @@ export const flushFirebaseUsers = async () => {
 
 export const registerDefaultUser = async () => {
   try {
-    console.log("Registering Default User.");
     chai.request(server)
       .post("/register")
       .send(getDefaultUser());
   } catch (err) {
-    console.log("Failed to reset test users database.");
+    console.log("Failed to register default user.");
     console.error(err);
   }
 }
