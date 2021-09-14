@@ -5,7 +5,7 @@ import fetch from "cross-fetch";
 import config from "../src/config/config";
 import server from "../src/app";
 
-import { getDefaultUser, WIPE_USERS_URL } from "./config";
+import { getDefaultUser } from "./config";
 import { flushFirebaseUsers, registerDefaultUser } from "./test-utils";
 
 chai.use(chaiHttp);

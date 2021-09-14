@@ -2,14 +2,14 @@ import fetch from "cross-fetch";
 import chai from "chai";
 import chaiHttp from "chai-http";
 
-import { WIPE_USERS_URL, getDefaultUser } from "./config";
+import { FLUSH_USERS_URL, getDefaultUser } from "./config";
 import server from "../src/app";
 
 chai.use(chaiHttp);
 
 export const flushFirebaseUsers = async () => {
   try {
-    return await fetch(WIPE_USERS_URL, {
+    return await fetch(FLUSH_USERS_URL, {
       method: "DELETE",
     });
   } catch (err) {
