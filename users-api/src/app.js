@@ -1,5 +1,6 @@
 import express from "express";
 import helmet from "helmet";
+import xss from "xss-clean";
 
 import config from "./config/config";
 
@@ -13,6 +14,7 @@ const app = express();
 app.use(helmet());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(xss());
 
 // Routes
 app.use(routes);
