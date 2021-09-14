@@ -151,7 +151,7 @@ describe("Testing User Login", function () {
        });
     });
 
-    it("Null User Object: Get 400 status.", (done) => {
+    it("User Object is Null: Get 400 status.", (done) => {
       this.user = null;
   
       chai.request(server)
@@ -163,8 +163,7 @@ describe("Testing User Login", function () {
        });
     });
 
-    // invalid body (empty object): return 400 status
-    it("Empty User Object: Get 400 status.", (done) => {
+    it("User Object is an Empty Object: Get 400 status.", (done) => {
       this.user = {};
   
       chai.request(server)
