@@ -6,6 +6,7 @@ import config from "../src/config/config";
 import server from "../src/app";
 
 import { DEFAULT_TEST_USER, WIPE_USERS_URL } from "./config";
+import { flushFirebaseUsers, registerDefaultUser } from "./test-utils";
 
 chai.use(chaiHttp);
 const { expect } = chai;
@@ -22,9 +23,33 @@ const { expect } = chai;
  * After:
  *     Wipe users database
  */
-describe("Testing User Login", () => {
-  // before
+describe("Testing User Login", function () {
+  before(async () => {
+    await flushFirebaseUsers();
+    await registerDefaultUser();
+  });
 
+  beforeEach(() => {
+    this.user = DEFAULT_TEST_USER();
+  });
+
+  after(async () => {
+    await flushFirebaseUsers();
+  });
+  
+
+  // Copy pasted from register.controller.test.js
+  // TODO Remove when Login Tests are added
+  describe("Successful User Registration", () => {
+    it("Register User: successfully register new user and respond with 204 status code.", async () => {
+      chai.request(server)
+        .post("/register")
+        .send(this.user)
+        .end((err, res) => {
+          expect(res).to.have.status(204);
+        });
+    });
+  });
   // login success: return 200 status and auth tokens
 
   // invalid password: return 401 status
@@ -34,6 +59,4 @@ describe("Testing User Login", () => {
   // invalid body (empty object): return 400 status
 
   // invalid body (missing email): return 400 status
-
-  // after
 });
