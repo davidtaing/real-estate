@@ -32,27 +32,29 @@ describe("Testing User Registration", function () {
   });
 
   describe("Successful User Registration", () => {
-    it("Register User: successfully register new user and respond with 204 status code.", async () => {
+    it("Register User: successfully register new user and respond with 204 status code.", async (done) => {
       chai.request(server)
         .post("/register")
         .send(this.user)
         .end((err, res) => {
           expect(res).to.have.status(204);
+          done();
         });
     });
   });
 
   describe("Failed User Registration", () => {
-    it("Register Same User Again: handle auth/email-already-in-use error appropiately and respond with 204 status.", async () => {
+    it("Register Same User Again: handle auth/email-already-in-use error appropiately and respond with 204 status.", async (done) => {
       chai.request(server)
         .post("/register")
         .send(this.user)
         .end((err, res) => {
           expect(res).to.have.status(204);
+          done();
         });
     });
   
-    it("Invalid Email Input: respond with 400 status.", () => {
+    it("Invalid Email Input: respond with 400 status.", (done) => {
       // Set Invalid Email
       this.user.email = "@" + this.user.email;
   
@@ -61,10 +63,11 @@ describe("Testing User Registration", function () {
         .send(this.user)
         .end((err, res) => {
           expect(res).to.have.status(400);
+          done();
        });
     });
   
-    it("Empty User Object: respond with 400 status.", () => {
+    it("Empty User Object: respond with 400 status.", (done) => {
       // Invalid user object
       this.user = {
         email: "",
@@ -76,10 +79,11 @@ describe("Testing User Registration", function () {
         .send(this.user)
         .end((err, res) => {
           expect(res).to.have.status(400);
+          done();
        });
     });
 
-    it("Null User Object: respond with 400 status.", () => {
+    it("Null User Object: respond with 400 status.", (done) => {
       // Invalid user object
       this.user = null;
   
@@ -88,6 +92,7 @@ describe("Testing User Registration", function () {
         .send(this.user)
         .end((err, res) => {
           expect(res).to.have.status(400);
+          done();
        });
     });
   });
