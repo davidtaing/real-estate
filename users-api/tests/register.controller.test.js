@@ -36,7 +36,7 @@ describe("Testing User Registration", function () {
   });
 
   after(async () => {
-    await flushFirebaseUsers();
+    // await flushFirebaseUsers();
   });
 
   describe("Successful User Registration", () => {
@@ -90,22 +90,8 @@ describe("Testing User Registration", function () {
        });
     });
 
-    // TODO
     it("Garbled Email String: Get 400 Status", (done) => {
       this.user.email = "werihuoaweiuhawe";
-  
-      chai.request(server)
-        .post("/register")
-        .send(this.user)
-        .end((err, res) => {
-          expect(res).to.have.status(400);
-          done();
-       });
-    });
-    
-    // TODO
-    it("Garbled Password String: Get 400 Status", (done) => {
-      this.user.password = "serfoijweroijeram;oisfr";
   
       chai.request(server)
         .post("/register")
