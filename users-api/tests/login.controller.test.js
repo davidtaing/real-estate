@@ -81,8 +81,46 @@ describe("Testing User Login", function () {
     });
 
     // invalid body (missing email): return 400 status
+    it("Empty Email & Password Strings: respond with 400 status.", (done) => {
+      this.user = {
+        email: "",
+        password: "",
+      };
+  
+      chai.request(server)
+        .post("/login")
+        .send(this.user)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          done();
+       });
+    });
 
-    // Null User Object
+    it("Empty Email String: respond with 400 status.", (done) => {
+      this.user.email = "";
+  
+      chai.request(server)
+        .post("/login")
+        .send(this.user)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          done();
+       });
+    });
+
+    it("Empty Password String: respond with 400 status.", (done) => {
+      this.user.password = "";
+  
+      chai.request(server)
+        .post("/login")
+        .send(this.user)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          done();
+       });
+    });
+
+
     it("Null User Object: respond with 400 status.", (done) => {
       this.user = null;
   
