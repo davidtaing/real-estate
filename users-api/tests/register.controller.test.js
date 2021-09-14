@@ -54,8 +54,8 @@ describe("Testing User Registration", function () {
         });
     });
 
-    // Set Invalid Email
     it("Invalid Email Input: respond with 400 status.", (done) => {
+      // Set invalid email. Should be something like "@email@email.com"
       this.user.email = "@" + this.user.email;
   
       chai.request(server)
@@ -67,8 +67,7 @@ describe("Testing User Registration", function () {
        });
     });
   
-    // Invalid user object
-    it("Empty User Object: respond with 400 status.", (done) => {
+    it("Empty Email & Password Strings: respond with 400 status.", (done) => {
       this.user = {
         email: "",
         password: "",
@@ -83,7 +82,30 @@ describe("Testing User Registration", function () {
        });
     });
 
-    // Null user object
+    it("Empty Email String: respond with 400 status.", (done) => {
+      this.user.email = "";
+  
+      chai.request(server)
+        .post("/register")
+        .send(this.user)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          done();
+       });
+    });
+
+    it("Empty Password String: respond with 400 status.", (done) => {
+      this.user.password = "";
+  
+      chai.request(server)
+        .post("/register")
+        .send(this.user)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          done();
+       });
+    });
+
     it("Null User Object: respond with 400 status.", (done) => {
       this.user = null;
   
