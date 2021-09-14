@@ -17,7 +17,7 @@ const { expect } = chai;
  *     - Empty user object
  * Before: Wipe users database again
  */
-describe("Testing User Registration", () => {
+describe("Testing User Registration", function () {
   // Clear user accounts before and after running tests
   before(async () => {
     await flushFirebaseUsers();
