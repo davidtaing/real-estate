@@ -78,5 +78,17 @@ describe("Testing User Registration", function () {
           expect(res).to.have.status(400);
        });
     });
+
+    it("Null User Object: respond with 400 status.", () => {
+      // Invalid user object
+      this.user = null;
+  
+      chai.request(server)
+        .post("/register")
+        .send(this.user)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+       });
+    });
   });
 })
