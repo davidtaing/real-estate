@@ -62,7 +62,7 @@ describe("Testing User Registration", function () {
         });
     });
 
-    it("Malformed Email String: Get 400 Status.", (done) => {
+    it("Malformed Email String: Get 400 Status", (done) => {
       // Set invalid email. Should be something like "@email@email.com"
       this.user.email = "@" + this.user.email;
   
@@ -117,7 +117,7 @@ describe("Testing User Registration", function () {
        });
     });
 
-    it("Empty Email String: Get 400 status.", (done) => {
+    it("Empty Email String: Get 400 Status", (done) => {
       this.user.email = "";
   
       chai.request(server)
@@ -129,7 +129,7 @@ describe("Testing User Registration", function () {
        });
     });
 
-    it("Empty Password String: Get 400 status.", (done) => {
+    it("Empty Password String: Get 400 Status", (done) => {
       this.user.password = "";
   
       chai.request(server)
@@ -141,7 +141,7 @@ describe("Testing User Registration", function () {
        });
     });
 
-    it("User Object is Null: Get 400 status.", (done) => {
+    it("User Object is Null: Get 400 Status", (done) => {
       this.user = null;
   
       chai.request(server)

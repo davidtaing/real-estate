@@ -84,7 +84,7 @@ describe("Testing User Login", function () {
       });
     });
 
-    it("Malformed Email Address: Get 401 status.", (done) => {
+    it("Malformed Email Address: Get 401 Status", (done) => {
       // Set invalid email. Should be something like "@email@email.com"
       this.user.email = "@" + this.user.email;
   
@@ -97,7 +97,7 @@ describe("Testing User Login", function () {
        });
     });
 
-    it("Garbled Email & Password Strings: Get 401 status.", (done) => {
+    it("Garbled Email & Password Strings: Get 401 Status", (done) => {
       this.user = {
         email: "werihuoaweiuhawe",
         password: "serfoijweroijeram;oisfr",
@@ -112,7 +112,7 @@ describe("Testing User Login", function () {
        });
     });
 
-    it("Empty Email & Password Strings: Get 400 status.", (done) => {
+    it("Empty Email & Password Strings: Get 400 Status", (done) => {
       this.user = {
         email: "",
         password: "",
@@ -127,7 +127,7 @@ describe("Testing User Login", function () {
        });
     });
 
-    it("Empty Email String: Get 400 status.", (done) => {
+    it("Empty Email String: Get 400 Status", (done) => {
       this.user.email = "";
   
       chai.request(server)
@@ -139,7 +139,7 @@ describe("Testing User Login", function () {
        });
     });
 
-    it("Empty Password String: Get 400 status.", (done) => {
+    it("Empty Password String: Get 400 Status", (done) => {
       this.user.password = "";
   
       chai.request(server)
@@ -151,7 +151,7 @@ describe("Testing User Login", function () {
        });
     });
 
-    it("User Object is Null: Get 400 status.", (done) => {
+    it("User Object is Null: Get 400 Status", (done) => {
       this.user = null;
   
       chai.request(server)
@@ -163,7 +163,7 @@ describe("Testing User Login", function () {
        });
     });
 
-    it("User Object is an Empty Object: Get 400 status.", (done) => {
+    it("User Object is an Empty Object: Get 400 Status", (done) => {
       this.user = {};
   
       chai.request(server)
