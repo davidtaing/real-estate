@@ -32,30 +32,30 @@ describe("Testing User Registration", function () {
   });
 
   describe("Successful User Registration", () => {
-    it("Register User: successfully register new user and respond with 204 status code.", async () => {
+    it("Register User: successfully register new user and respond with 204 status code.", (done) => {
       chai.request(server)
         .post("/register")
         .send(this.user)
         .end((err, res) => {
           expect(res).to.have.status(204);
-          resolve();
+          done();
         });
     });
   });
 
   describe("Failed User Registration", () => {
-    it("Register Same User Again: handle auth/email-already-in-use error appropiately and respond with 204 status.", async () => {
+    it("Register Same User Again: handle auth/email-already-in-use error appropiately and respond with 204 status.", (done) => {
       chai.request(server)
         .post("/register")
         .send(this.user)
         .end((err, res) => {
           expect(res).to.have.status(204);
-          resolve();
+          done();
         });
     });
-  
+
+    // Set Invalid Email
     it("Invalid Email Input: respond with 400 status.", (done) => {
-      // Set Invalid Email
       this.user.email = "@" + this.user.email;
   
       chai.request(server)
@@ -67,8 +67,8 @@ describe("Testing User Registration", function () {
        });
     });
   
+    // Invalid user object
     it("Empty User Object: respond with 400 status.", (done) => {
-      // Invalid user object
       this.user = {
         email: "",
         password: "",
@@ -83,8 +83,8 @@ describe("Testing User Registration", function () {
        });
     });
 
+    // Null user object
     it("Null User Object: respond with 400 status.", (done) => {
-      // Invalid user object
       this.user = null;
   
       chai.request(server)
