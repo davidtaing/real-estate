@@ -13,15 +13,21 @@ const { expect } = chai;
 
 /**
  * Before: 
- *     Wipe users database, then create user using default user in config 
+ *     - Flush Users From Database, 
+ *     - Create Default User
  * Tests:
  *     - Successful Login (Valid Credentials)
  *     - Invalid Password
  *     - User Doesn't Exist
- *     - Invalid Body (Empty Object)
- *     - Invalid Body (Missing Email)
+ *     - Malformed Email String
+ *     - Garbled Email & Password Strings
+ *     - Empty Email & Password Strings
+ *     - Empty Email String
+ *     - Empty Password String
+ *     - User is a null object
+ *     - User is an empty object
  * After:
- *     Wipe users database
+ *     Flush Users From Database
  */
 describe("Testing User Login", function () {
   before(async () => {
@@ -53,7 +59,7 @@ describe("Testing User Login", function () {
 
   describe("Failed Login", () => {
     // invalid password: return 401 status
-    it("Invalid User Credentials: respond with 401 status", (done) => {
+    it("Invalid Password: respond with 401 status", (done) => {
       this.user.password += "asdf";
 
       chai.request(server)
@@ -93,22 +99,6 @@ describe("Testing User Login", function () {
        });
     });
 
-    it("Empty Email & Password Strings: respond with 400 status.", (done) => {
-      this.user = {
-        email: "",
-        password: "",
-      };
-  
-      chai.request(server)
-        .post("/login")
-        .send(this.user)
-        .end((err, res) => {
-          expect(res).to.have.status(400);
-          done();
-       });
-    });
-
-    
     it("Garbled Email & Password Strings: respond with 401 status.", (done) => {
       this.user = {
         email: "werihuoaweiuhawe",
@@ -120,6 +110,21 @@ describe("Testing User Login", function () {
         .send(this.user)
         .end((err, res) => {
           expect(res).to.have.status(401);
+          done();
+       });
+    });
+
+    it("Empty Email & Password Strings: respond with 400 status.", (done) => {
+      this.user = {
+        email: "",
+        password: "",
+      };
+  
+      chai.request(server)
+        .post("/login")
+        .send(this.user)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
           done();
        });
     });
@@ -148,7 +153,6 @@ describe("Testing User Login", function () {
        });
     });
 
-
     it("Null User Object: respond with 400 status.", (done) => {
       this.user = null;
   
@@ -161,7 +165,6 @@ describe("Testing User Login", function () {
        });
     });
 
-    
     // invalid body (empty object): return 400 status
     it("Empty User Object: respond with 400 status.", (done) => {
       this.user = {};
