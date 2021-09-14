@@ -27,7 +27,7 @@ const loginController = async (req, res, next) => {
       case "auth/invalid-email":
           return res.status(401).json({ status: 401, message: "Unauthorized: Invalid Email or Password."});
       case "auth/missing-email":
-        return res.status(400).json({ status: 401, message: "Bad Request"});
+        return res.status(401).json({ status: 401, message: "Bad Request"});
       default:
         return next(err);
     }
