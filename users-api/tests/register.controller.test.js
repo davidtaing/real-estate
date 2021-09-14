@@ -62,7 +62,7 @@ describe("Testing User Registration", function () {
         });
     });
 
-    it("Invalid Email String: Get 400 Status.", (done) => {
+    it("Malformed Email String: Get 400 Status.", (done) => {
       // Set invalid email. Should be something like "@email@email.com"
       this.user.email = "@" + this.user.email;
   
