@@ -91,10 +91,30 @@ describe("Testing User Registration", function () {
     });
 
     // TODO
-    it("Garbled Email String");
+    it("Garbled Email String: Get 400 Status", (done) => {
+      this.user.email = "werihuoaweiuhawe";
+  
+      chai.request(server)
+        .post("/register")
+        .send(this.user)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          done();
+       });
+    });
     
     // TODO
-    it("Garbled Password String");
+    it("Garbled Password String: Get 400 Status", (done) => {
+      this.user.password = "serfoijweroijeram;oisfr";
+  
+      chai.request(server)
+        .post("/register")
+        .send(this.user)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          done();
+       });
+    });
   
     it("Empty Email & Password Strings: Get 400 Status.", (done) => {
       this.user = {
