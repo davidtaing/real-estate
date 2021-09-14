@@ -39,20 +39,21 @@ describe("Testing User Login", function () {
   
   // login success: return 200 status and auth tokens
   describe("Successful Login", () => {
-    it("Valid User Credentials", () => {
+    it("Valid User Credentials", (done) => {
       chai.request(server)
         .post("/login")
         .send(this.user)
         .end((err, res) => {
           expect(err).to.be.null;
           expect(res).to.have.status(200);
+          done();
       });
     });
   });
 
   describe("Failed Login", () => {
     // invalid password: return 401 status
-    it("Invalid User Credentials: respond with 401 status", () => {
+    it("Invalid User Credentials: respond with 401 status", (done) => {
       this.user.password += "asdf";
 
       chai.request(server)
@@ -61,11 +62,12 @@ describe("Testing User Login", function () {
         .end((err, res) => {
           expect(err).to.be.null;
           expect(res).to.have.status(401);
+          done();
       });
     });
 
     // user doesn't exist: return 401 status
-    it("Email Not in Database: respond with 401 status", () => {
+    it("Email Not in Database: respond with 401 status", (done) => {
       this.user.email = "asdf" + this.user.email;
 
       chai.request(server)
@@ -74,13 +76,14 @@ describe("Testing User Login", function () {
         .end((err, res) => {
           expect(err).to.be.null;
           expect(res).to.have.status(401);
+          done();
       });
     });
 
     // invalid body (missing email): return 400 status
 
     // Null User Object
-    it("Null User Object: respond with 400 status.", () => {
+    it("Null User Object: respond with 400 status.", (done) => {
       this.user = null;
   
       chai.request(server)
@@ -88,6 +91,7 @@ describe("Testing User Login", function () {
         .send(this.user)
         .end((err, res) => {
           expect(res).to.have.status(400);
+          done();
        });
     });
 
