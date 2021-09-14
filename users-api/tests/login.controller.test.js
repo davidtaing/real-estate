@@ -49,12 +49,28 @@ describe("Testing User Login", function () {
       });
     });
   });
+
+  describe("Failed Login", () => {
+    // invalid password: return 401 status
+    it("Invalid User Credentials: respond with 401 status", () => {
+      this.user.password += "asdf";
+
+      chai.request(server)
+        .post("/login")
+        .send(this.user)
+        .end((err, res) => {
+          console.log(`Error: ${err}`);
+
+          expect(err).to.be.null;
+          expect(res).to.have.status(401);
+      });
+    });
+
+    // user doesn't exist: return 401 status
   
-  // invalid password: return 401 status
+    // invalid body (empty object): return 400 status
 
-  // user doesn't exist: return 401 status
+    // invalid body (missing email): return 400 status
+  });
 
-  // invalid body (empty object): return 400 status
-
-  // invalid body (missing email): return 400 status
 });
