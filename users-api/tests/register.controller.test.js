@@ -35,8 +35,12 @@ const flushUsers = async () => {
  * Before: Wipe users database again
  */
 describe("Testing User Registration", () => {
-  // Clear user accounts before running tests
+  // Clear user accounts before and after running tests
   before(async () => {
+    await flushUsers();
+  });
+
+  after(async () => {
     await flushUsers();
   });
 
