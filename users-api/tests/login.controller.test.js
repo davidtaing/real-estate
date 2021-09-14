@@ -5,7 +5,7 @@ import fetch from "cross-fetch";
 import config from "../src/config/config";
 import server from "../src/app";
 
-import { DEFAULT_TEST_USER, WIPE_USERS_URL } from "./config";
+import { getDefaultUser, WIPE_USERS_URL } from "./config";
 import { flushFirebaseUsers, registerDefaultUser } from "./test-utils";
 
 chai.use(chaiHttp);
@@ -30,7 +30,7 @@ describe("Testing User Login", function () {
   });
 
   beforeEach(() => {
-    this.user = DEFAULT_TEST_USER();
+    this.user = getDefaultUser();
   });
 
   after(async () => {

@@ -6,7 +6,7 @@ const { projectId : FIREBASE_PROJECT_ID } = config.FIREBASE_CONFIGS;
 // NOTE: Only works for emulator and not production database.
 export const WIPE_USERS_URL = `http://localhost:9099/emulator/v1/projects/${FIREBASE_PROJECT_ID}/accounts`;
 
-export const DEFAULT_TEST_USER = () => ({
+export const getDefaultUser = () => ({
   email: "hello@fakewebsite.com",
   password: "12345678",
 });

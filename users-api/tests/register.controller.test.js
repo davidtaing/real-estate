@@ -2,7 +2,7 @@ import chai from "chai";
 import chaiHttp from "chai-http";
 import server from "../src/app";
 
-import { DEFAULT_TEST_USER } from "./config";
+import { getDefaultUser } from "./config";
 import { flushFirebaseUsers } from "./test-utils";
 
 chai.use(chaiHttp);
@@ -24,7 +24,7 @@ describe("Testing User Registration", function () {
   });
 
   beforeEach(() => {
-    this.user = DEFAULT_TEST_USER();
+    this.user = getDefaultUser();
   });
 
   after(async () => {
