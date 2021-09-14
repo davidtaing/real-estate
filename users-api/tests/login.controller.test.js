@@ -77,8 +77,31 @@ describe("Testing User Login", function () {
       });
     });
 
-    // invalid body (empty object): return 400 status
-
     // invalid body (missing email): return 400 status
+
+    // Null User Object
+    it("Null User Object: respond with 400 status.", () => {
+      this.user = null;
+  
+      chai.request(server)
+        .post("/login")
+        .send(this.user)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+       });
+    });
+
+    
+    // invalid body (empty object): return 400 status
+    it("Empty User Object: respond with 400 status.", () => {
+      this.user = {};
+  
+      chai.request(server)
+        .post("/login")
+        .send(this.user)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+       });
+    });
   });
 });
