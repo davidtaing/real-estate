@@ -18,7 +18,7 @@ const { expect } = chai;
  * Tests:
  *     - Successful Login (Valid Credentials)
  *     - Invalid Password
- *     - User Doesn't Exist
+ *     - Email Not In Database (User Doesn't Exist)
  *     - Malformed Email String
  *     - Garbled Email & Password Strings
  *     - Empty Email & Password Strings
@@ -58,8 +58,7 @@ describe("Testing User Login", function () {
   });
 
   describe("Failed Login", () => {
-    // invalid password: return 401 status
-    it("Invalid Password: respond with 401 status", (done) => {
+    it("Invalid Password: Get 401 Status", (done) => {
       this.user.password += "asdf";
 
       chai.request(server)
@@ -72,8 +71,7 @@ describe("Testing User Login", function () {
       });
     });
 
-    // user doesn't exist: return 401 status
-    it("Email Not in Database: respond with 401 status", (done) => {
+    it("Email Not in Database: Get 401 Status", (done) => {
       this.user.email = "asdf" + this.user.email;
 
       chai.request(server)
@@ -86,7 +84,7 @@ describe("Testing User Login", function () {
       });
     });
 
-    it("Malformed Email Address: respond with 401 status.", (done) => {
+    it("Malformed Email Address: Get 401 status.", (done) => {
       // Set invalid email. Should be something like "@email@email.com"
       this.user.email = "@" + this.user.email;
   
@@ -99,7 +97,7 @@ describe("Testing User Login", function () {
        });
     });
 
-    it("Garbled Email & Password Strings: respond with 401 status.", (done) => {
+    it("Garbled Email & Password Strings: Get 401 status.", (done) => {
       this.user = {
         email: "werihuoaweiuhawe",
         password: "serfoijweroijeram;oisfr",
@@ -114,7 +112,7 @@ describe("Testing User Login", function () {
        });
     });
 
-    it("Empty Email & Password Strings: respond with 400 status.", (done) => {
+    it("Empty Email & Password Strings: Get 400 status.", (done) => {
       this.user = {
         email: "",
         password: "",
@@ -129,7 +127,7 @@ describe("Testing User Login", function () {
        });
     });
 
-    it("Empty Email String: respond with 400 status.", (done) => {
+    it("Empty Email String: Get 400 status.", (done) => {
       this.user.email = "";
   
       chai.request(server)
@@ -141,7 +139,7 @@ describe("Testing User Login", function () {
        });
     });
 
-    it("Empty Password String: respond with 400 status.", (done) => {
+    it("Empty Password String: Get 400 status.", (done) => {
       this.user.password = "";
   
       chai.request(server)
@@ -153,7 +151,7 @@ describe("Testing User Login", function () {
        });
     });
 
-    it("Null User Object: respond with 400 status.", (done) => {
+    it("Null User Object: Get 400 status.", (done) => {
       this.user = null;
   
       chai.request(server)
@@ -166,7 +164,7 @@ describe("Testing User Login", function () {
     });
 
     // invalid body (empty object): return 400 status
-    it("Empty User Object: respond with 400 status.", (done) => {
+    it("Empty User Object: Get 400 status.", (done) => {
       this.user = {};
   
       chai.request(server)
