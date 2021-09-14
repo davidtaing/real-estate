@@ -153,7 +153,16 @@ describe("Testing User Registration", function () {
        });
     });
 
-    // TODO
-    it("User Object is Empty Object")
+    it("User Object is Empty Object: Get 400 Status", (done) => {
+      this.user = {};
+  
+      chai.request(server)
+        .post("/register")
+        .send(this.user)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          done();
+       });
+    });
   });
 })
