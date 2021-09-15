@@ -8,7 +8,7 @@ const router = express.Router();
 
 /**
  * POST /login
- * @description: Returns JWT Token if successful
+ * @description: Returns JWT Token & Refresh Token if successful
  * @response: 200 - OK
  * @response: 400 - Bad Request (Failed Input Validation)
  * @response: 401 - Unauthorized (Invalid Credentials)
