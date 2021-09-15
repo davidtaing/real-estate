@@ -1,8 +1,6 @@
 import express from "express";
 import helmet from "helmet";
 import xss from "xss-clean";
-import cookieParser from "cookie-parser";
-import csurf from "csurf";
 
 import config from "./config/config";
 
@@ -17,21 +15,9 @@ app.use(helmet());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(xss());
-app.use(cookieParser());
-// TODO: Fix unit tests failing from this.
-app.use(csurf({ cookie: true }));
 
 // Routes
 app.use(routes);
-
-// Error Handler for Invalid CSRF Token
-app.use(function (err, req, res, next) {
-  if (err.code !== 'EBADCSRFTOKEN') return next(err);
-
-  // handle CSRF token errors here
-  res.status(403);
-  res.send('form tampered with');
-});
 
 /**
  * Default Error Handler
