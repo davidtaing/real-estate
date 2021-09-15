@@ -3,6 +3,7 @@ import express from "express";
 // Controllers
 import loginController from "../controllers/login.controller";
 import registerController from "../controllers/register.controller";
+import resetPassword from "../controllers/resetPassword.controller";
 
 const router = express.Router();
 
@@ -22,6 +23,12 @@ router.post("/login", loginController);
  * @response: 400 - Bad Request
  */
 router.post("/register", registerController);
+
+/**
+ * POST /reset-password
+ * @description: Reset Password Route
+ */
+router.post("/reset-password", resetPassword);
 
 
 export default router;
