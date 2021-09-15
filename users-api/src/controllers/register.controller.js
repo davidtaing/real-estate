@@ -8,7 +8,6 @@ const registerController = async (req, res, next) => {
   try {
     let { email, password } = req.body;
 
-    // TODO Sanitize and Validate Input
     if (!email || !password) {
       throw Error("400");
     }

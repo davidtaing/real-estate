@@ -27,7 +27,7 @@ const { expect } = chai;
  *     - User is a null object
  *     - User is an empty object
  * After:
- *     Flush Users From Database
+ *     - Flush Users From Database
  */
 describe("Testing User Login", function () {
   before(async () => {
