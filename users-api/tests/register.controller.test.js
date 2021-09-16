@@ -36,7 +36,7 @@ describe("Testing User Registration", function () {
   });
 
   after(async () => {
-    // await flushFirebaseUsers();
+    await flushFirebaseUsers();
   });
 
   describe("Successful User Registration", () => {
