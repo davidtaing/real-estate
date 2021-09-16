@@ -2,8 +2,8 @@ import chai from "chai";
 import chaiHttp from "chai-http";
 import server from "../src/app";
 
-import { getDefaultUser } from "./config";
-import { flushFirebaseUsers, registerDefaultUser } from "./test-utils";
+import { getDefaultEmail } from "./config";
+import { flushFirebaseUsers, registerDefaultUser, getOOBCodes } from "./test-utils";
 
 chai.use(chaiHttp);
 const { expect } = chai;
@@ -28,7 +28,7 @@ describe("Testing Password Change", function () {
   });
 
   beforeEach(() => {
-    this.user = getDefaultUser();
+    this.payload = { email: getDefaultEmail() };
   });
 
   after(async () => {
@@ -36,25 +36,40 @@ describe("Testing Password Change", function () {
   });
   
   describe("Successful Password Change", () => {
+    it("Should Have No OOB Codes Before Password Change Request", async () => {
+      let oobCodes = await getOOBCodes();
+      expect(oobCodes).to.be.an('array');
+      expect(oobCodes).to.be.empty;
+
+      return null;
+    });
+    
     it("Successfully Change Password: Get 204 Status", (done) => {
       chai.request(server)
         .post("/reset-password")
-        .send(this.user)
+        .send(this.payload)
         .end((err, res) => {
           expect(err).to.be.null;
           expect(res).to.have.status(204);
           done();
       });
     });
+
+    it("Should Have A New OOB Code", async () => {
+      let oobCodes =  await getOOBCodes();
+      expect(oobCodes).to.be.an('array');
+      expect(oobCodes).to.be.lengthOf(1);
+      return null;
+    });
   });
 
   describe("Unsuccesful Password Changes", () => {
     it("User Not In Database: Get 204 Status", (done) => {
-      this.user.email = 'asdf' + this.user.email;
+      this.payload.email = 'asdf' + this.payload.email;
       
       chai.request(server)
         .post("/reset-password")
-        .send(this.user)
+        .send(this.payload)
         .end((err, res) => {
           expect(err).to.be.null;
           expect(res).to.have.status(204);
@@ -64,11 +79,11 @@ describe("Testing Password Change", function () {
 
     it("Malformed Email String: Get 400 Status", (done) => {
       // Set invalid email. Should be something like "@email@email.com"
-      this.user.email = '@' + this.user.email;
+      this.payload.email = '@' + this.payload.email;
 
       chai.request(server)
         .post("/reset-password")
-        .send(this.user)
+        .send(this.payload)
         .end((err, res) => {
           expect(err).to.be.null;
           expect(res).to.have.status(400);
@@ -76,5 +91,4 @@ describe("Testing Password Change", function () {
       });
     });
   });
-
 });
