@@ -1,5 +1,7 @@
 import chai from "chai";
 import chaiHttp from "chai-http";
+import nock from "nock";
+
 import server from "../src/app";
 
 import { getDefaultEmail } from "./config";
@@ -53,6 +55,14 @@ describe("Testing Password Change", function () {
           expect(res).to.have.status(204);
           done();
       });
+    });
+
+    it("Nock Successfully Change Password: Get 204 Status", (done) => {
+      const scope = nock("https://localhost:3000")
+        .post("/reset-password")
+        .reply(204, null);
+
+      scope.done()
     });
 
     it("Should Have A New OOB Code", async () => {
