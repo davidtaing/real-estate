@@ -4,8 +4,7 @@ import nock from "nock";
 
 import server from "../src/app";
 
-import { getDefaultEmail } from "./config";
-import { flushFirebaseUsers, registerDefaultUser, getOOBCodes } from "./helpers";
+import { getDefaultEmail, flushFirebaseUsers, registerDefaultUser, getOOBCodes } from "./helpers";
 
 chai.use(chaiHttp);
 const { expect } = chai;

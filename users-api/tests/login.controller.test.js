@@ -5,8 +5,7 @@ import fetch from "cross-fetch";
 import config from "../src/config/config";
 import server from "../src/app";
 
-import { getDefaultUser } from "./config";
-import { flushFirebaseUsers, registerDefaultUser } from "./helpers";
+import { getDefaultUser, flushFirebaseUsers, registerDefaultUser } from "./helpers";
 
 chai.use(chaiHttp);
 const { expect } = chai;

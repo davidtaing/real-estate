@@ -2,8 +2,7 @@ import chai from "chai";
 import chaiHttp from "chai-http";
 import server from "../src/app";
 
-import { getDefaultUser } from "./config";
-import { flushFirebaseUsers } from "./helpers";
+import { getDefaultUser, flushFirebaseUsers } from "./helpers";
 
 chai.use(chaiHttp);
 const { expect } = chai;
