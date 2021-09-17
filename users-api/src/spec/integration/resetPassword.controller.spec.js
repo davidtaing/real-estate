@@ -2,9 +2,9 @@ import chai from "chai";
 import chaiHttp from "chai-http";
 import nock from "nock";
 
-import server from "../src/app";
+import server from "../../app";
 
-import { getDefaultEmail, flushFirebaseUsers, registerDefaultUser, getOOBCodes } from "./helpers";
+import { getDefaultEmail, flushFirebaseUsers, registerDefaultUser, getOOBCodes } from "../helpers";
 
 chai.use(chaiHttp);
 const { expect } = chai;

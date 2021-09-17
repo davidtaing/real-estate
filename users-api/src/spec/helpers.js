@@ -2,8 +2,8 @@ import fetch from "cross-fetch";
 import chai from "chai";
 import chaiHttp from "chai-http";
 
-import server from "../src/app";
-import config from "../src/config/config";
+import server from "../app";
+import config from "../config/config";
 
 const { projectId : FIREBASE_PROJECT_ID } = config.FIREBASE_CONFIGS;
 

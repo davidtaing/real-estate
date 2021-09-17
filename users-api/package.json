@@ -5,7 +5,7 @@
   "main": "src/app.js",
   "scripts": {
     "start": "set NODE_ENV=development&&nodemon --exec babel-node src/app.js",
-    "test": "mocha --require @babel/register 'tests/**.**.test.js'"
+    "test": "mocha --require @babel/register 'src/spec/**/**.**.spec.js'"
   },
   "author": "David Taing <adavidtaing@gmail.com>",
   "license": "ISC",

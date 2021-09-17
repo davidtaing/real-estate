@@ -1,33 +1,37 @@
 import chai from "chai";
 import chaiHttp from "chai-http";
-import server from "../src/app";
+import fetch from "cross-fetch";
 
-import { getDefaultUser, flushFirebaseUsers } from "./helpers";
+import config from "../../config/config";
+import server from "../../app";
+
+import { getDefaultUser, flushFirebaseUsers, registerDefaultUser } from "../helpers";
 
 chai.use(chaiHttp);
 const { expect } = chai;
 
 /**
  * Before: 
- *     - Flush Users From Database
+ *     - Flush Users From Database, 
+ *     - Create Default User
  * Tests:
- *     - Succesfully Register User
- *     - Reregister Same User with Same Credentials
- *     - Invalid Email String
+ *     - Successful Login (Valid Credentials)
+ *     - Invalid Password
+ *     - Email Not In Database (User Doesn't Exist)
+ *     - Malformed Email String
  *     - Garbled Email & Password Strings
- *     - Garbled Email String
  *     - Empty Email & Password Strings
  *     - Empty Email String
  *     - Empty Password String
- *     - User Object is Null
- *     - User Object is Empty
- * After: 
+ *     - User is a null object
+ *     - User is an empty object
+ * After:
  *     - Flush Users From Database
  */
-describe("Testing User Registration", function () {
-  // Clear user accounts before and after running tests
+describe("Testing User Login", function () {
   before(async () => {
     await flushFirebaseUsers();
+    await registerDefaultUser();
   });
 
   beforeEach(() => {
@@ -37,78 +41,84 @@ describe("Testing User Registration", function () {
   after(async () => {
     await flushFirebaseUsers();
   });
-
-  describe("Successful User Registration", () => {
-    it("Successfully Register User: Get 204 Status", (done) => {
+  
+  // login success: return 200 status and auth tokens
+  describe("Successful Login", () => {
+    it("Valid User Credentials", (done) => {
       chai.request(server)
-        .post("/register")
+        .post("/login")
         .send(this.user)
         .end((err, res) => {
-          expect(res).to.have.status(204);
+          expect(err).to.be.null;
+          expect(res).to.have.status(200);
           done();
-        });
+      });
     });
   });
 
-  describe("Failed User Registration", () => {
-    it("Register Same User Again: Get 204 Status", (done) => {
+  describe("Failed Login", () => {
+    it("Invalid Password: Get 401 Status", (done) => {
+      this.user.password += "asdf";
+
       chai.request(server)
-        .post("/register")
+        .post("/login")
         .send(this.user)
         .end((err, res) => {
-          expect(res).to.have.status(204);
+          expect(err).to.be.null;
+          expect(res).to.have.status(401);
           done();
-        });
+      });
     });
 
-    it("Malformed Email String: Get 400 Status", (done) => {
+    it("Email Not in Database: Get 401 Status", (done) => {
+      this.user.email = "asdf" + this.user.email;
+
+      chai.request(server)
+        .post("/login")
+        .send(this.user)
+        .end((err, res) => {
+          expect(err).to.be.null;
+          expect(res).to.have.status(401);
+          done();
+      });
+    });
+
+    it("Malformed Email Address: Get 401 Status", (done) => {
       // Set invalid email. Should be something like "@email@email.com"
       this.user.email = "@" + this.user.email;
   
       chai.request(server)
-        .post("/register")
+        .post("/login")
         .send(this.user)
         .end((err, res) => {
-          expect(res).to.have.status(400);
+          expect(res).to.have.status(401);
           done();
        });
     });
 
-    it("Garbled Email And Password String: Get 400 Status", (done) => {
+    it("Garbled Email & Password Strings: Get 401 Status", (done) => {
       this.user = {
         email: "werihuoaweiuhawe",
         password: "serfoijweroijeram;oisfr",
       };
   
       chai.request(server)
-        .post("/register")
+        .post("/login")
         .send(this.user)
         .end((err, res) => {
-          expect(res).to.have.status(400);
+          expect(res).to.have.status(401);
           done();
        });
     });
 
-    it("Garbled Email String: Get 400 Status", (done) => {
-      this.user.email = "werihuoaweiuhawe";
-  
-      chai.request(server)
-        .post("/register")
-        .send(this.user)
-        .end((err, res) => {
-          expect(res).to.have.status(400);
-          done();
-       });
-    });
-  
-    it("Empty Email & Password Strings: Get 400 Status.", (done) => {
+    it("Empty Email & Password Strings: Get 400 Status", (done) => {
       this.user = {
         email: "",
         password: "",
       };
   
       chai.request(server)
-        .post("/register")
+        .post("/login")
         .send(this.user)
         .end((err, res) => {
           expect(res).to.have.status(400);
@@ -120,7 +130,7 @@ describe("Testing User Registration", function () {
       this.user.email = "";
   
       chai.request(server)
-        .post("/register")
+        .post("/login")
         .send(this.user)
         .end((err, res) => {
           expect(res).to.have.status(400);
@@ -132,7 +142,7 @@ describe("Testing User Registration", function () {
       this.user.password = "";
   
       chai.request(server)
-        .post("/register")
+        .post("/login")
         .send(this.user)
         .end((err, res) => {
           expect(res).to.have.status(400);
@@ -144,7 +154,7 @@ describe("Testing User Registration", function () {
       this.user = null;
   
       chai.request(server)
-        .post("/register")
+        .post("/login")
         .send(this.user)
         .end((err, res) => {
           expect(res).to.have.status(400);
@@ -152,11 +162,11 @@ describe("Testing User Registration", function () {
        });
     });
 
-    it("User Object is Empty Object: Get 400 Status", (done) => {
+    it("User Object is an Empty Object: Get 400 Status", (done) => {
       this.user = {};
   
       chai.request(server)
-        .post("/register")
+        .post("/login")
         .send(this.user)
         .end((err, res) => {
           expect(res).to.have.status(400);
@@ -164,4 +174,4 @@ describe("Testing User Registration", function () {
        });
     });
   });
-})
+});
