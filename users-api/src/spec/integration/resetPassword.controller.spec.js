@@ -56,14 +56,6 @@ describe("Testing Password Change", function () {
       });
     });
 
-    it("Nock Successfully Change Password: Get 204 Status", (done) => {
-      const scope = nock("https://localhost:3000")
-        .post("/reset-password")
-        .reply(204, null);
-
-      scope.done()
-    });
-
     it("Should Have A New OOB Code", async () => {
       let oobCodes =  await getOOBCodes();
       expect(oobCodes).to.be.an('array');
