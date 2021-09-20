@@ -8,19 +8,19 @@ export class Property extends Entity {
     generated: false,
     required: true,
   })
-  prop_id: string;
+  propId: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  address_ln1: string;
+  addressLn1: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  address_ln2: string;
+  addressLn2: string;
 
   @property({
     type: 'string',

@@ -13,19 +13,19 @@ export class Tenant extends Entity {
     type: 'string',
     required: true,
   })
-  full_name: string;
+  fullName: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  preferred_name: string;
+  preferredName: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  prop_id: string;
+  propId: string;
 
   @property({
     type: 'string',
@@ -47,7 +47,7 @@ export class Tenant extends Entity {
   @property({
     type: 'string',
   })
-  work_phone?: string;
+  workPhone?: string;
 
 
   constructor(data?: Partial<Tenant>) {
