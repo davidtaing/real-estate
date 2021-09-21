@@ -8,7 +8,7 @@ export class RentPayment extends Entity {
     generated: false,
     required: true,
   })
-  paymentId: string;
+  paymentNumber: string;
 
   @property({
     type: 'string',
