@@ -1,4 +1,6 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {PaymentMethod} from './payment-method.model';
+import {PaymentCategory} from './payment-category.model';
 
 @model()
 export class Payment extends Entity {
@@ -48,18 +50,11 @@ export class Payment extends Entity {
     required: true,
   })
   payee: string;
-
-  @property({
-    type: 'number',
-    required: true,
-  })
-  categoryCode: number;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
+  @belongsTo(() => PaymentMethod, {name: 'paymentMethod'})
   methodCode: string;
+
+  @belongsTo(() => PaymentCategory, {name: 'paymentCategory'})
+  categoryCode: number;
 
   constructor(data?: Partial<Payment>) {
     super(data);
