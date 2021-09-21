@@ -76,25 +76,6 @@ export class TenantController {
     return this.tenantRepository.find(filter);
   }
 
-  @patch('/tenants')
-  @response(200, {
-    description: 'Tenant PATCH success count',
-    content: {'application/json': {schema: CountSchema}},
-  })
-  async updateAll(
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: getModelSchemaRef(Tenant, {partial: true}),
-        },
-      },
-    })
-    tenant: Tenant,
-    @param.where(Tenant) where?: Where<Tenant>,
-  ): Promise<Count> {
-    return this.tenantRepository.updateAll(tenant, where);
-  }
-
   @get('/tenants/{id}')
   @response(200, {
     description: 'Tenant model instance',
@@ -127,17 +108,6 @@ export class TenantController {
     tenant: Tenant,
   ): Promise<void> {
     await this.tenantRepository.updateById(id, tenant);
-  }
-
-  @put('/tenants/{id}')
-  @response(204, {
-    description: 'Tenant PUT success',
-  })
-  async replaceById(
-    @param.path.string('id') id: string,
-    @requestBody() tenant: Tenant,
-  ): Promise<void> {
-    await this.tenantRepository.replaceById(id, tenant);
   }
 
   @del('/tenants/{id}')

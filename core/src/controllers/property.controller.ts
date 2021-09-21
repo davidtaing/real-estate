@@ -76,25 +76,6 @@ export class PropertyController {
     return this.propertyRepository.find(filter);
   }
 
-  @patch('/properties')
-  @response(200, {
-    description: 'Property PATCH success count',
-    content: {'application/json': {schema: CountSchema}},
-  })
-  async updateAll(
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: getModelSchemaRef(Property, {partial: true}),
-        },
-      },
-    })
-    property: Property,
-    @param.where(Property) where?: Where<Property>,
-  ): Promise<Count> {
-    return this.propertyRepository.updateAll(property, where);
-  }
-
   @get('/properties/{id}')
   @response(200, {
     description: 'Property model instance',
@@ -127,17 +108,6 @@ export class PropertyController {
     property: Property,
   ): Promise<void> {
     await this.propertyRepository.updateById(id, property);
-  }
-
-  @put('/properties/{id}')
-  @response(204, {
-    description: 'Property PUT success',
-  })
-  async replaceById(
-    @param.path.string('id') id: string,
-    @requestBody() property: Property,
-  ): Promise<void> {
-    await this.propertyRepository.replaceById(id, property);
   }
 
   @del('/properties/{id}')

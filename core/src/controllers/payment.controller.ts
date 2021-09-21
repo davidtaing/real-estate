@@ -76,25 +76,6 @@ export class PaymentController {
     return this.paymentRepository.find(filter);
   }
 
-  @patch('/payments')
-  @response(200, {
-    description: 'Payment PATCH success count',
-    content: {'application/json': {schema: CountSchema}},
-  })
-  async updateAll(
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: getModelSchemaRef(Payment, {partial: true}),
-        },
-      },
-    })
-    payment: Payment,
-    @param.where(Payment) where?: Where<Payment>,
-  ): Promise<Count> {
-    return this.paymentRepository.updateAll(payment, where);
-  }
-
   @get('/payments/{id}')
   @response(200, {
     description: 'Payment model instance',
@@ -109,35 +90,6 @@ export class PaymentController {
     @param.filter(Payment, {exclude: 'where'}) filter?: FilterExcludingWhere<Payment>
   ): Promise<Payment> {
     return this.paymentRepository.findById(id, filter);
-  }
-
-  @patch('/payments/{id}')
-  @response(204, {
-    description: 'Payment PATCH success',
-  })
-  async updateById(
-    @param.path.number('id') id: number,
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: getModelSchemaRef(Payment, {partial: true}),
-        },
-      },
-    })
-    payment: Payment,
-  ): Promise<void> {
-    await this.paymentRepository.updateById(id, payment);
-  }
-
-  @put('/payments/{id}')
-  @response(204, {
-    description: 'Payment PUT success',
-  })
-  async replaceById(
-    @param.path.number('id') id: number,
-    @requestBody() payment: Payment,
-  ): Promise<void> {
-    await this.paymentRepository.replaceById(id, payment);
   }
 
   @del('/payments/{id}')
