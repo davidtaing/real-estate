@@ -10,9 +10,7 @@ import {
   get,
   getModelSchemaRef,
   getWhereSchemaFor,
-  param,
-  patch,
-  post,
+  param, post,
   requestBody
 } from '@loopback/rest';
 import {
@@ -68,29 +66,6 @@ export class PropertyTenantController {
     }) tenant: Omit<Tenant, 'tenancyId'>,
   ): Promise<Tenant> {
     return this.propertyRepository.tenants(id).create(tenant);
-  }
-
-  @patch('/properties/{id}/tenants', {
-    responses: {
-      '200': {
-        description: 'Property.Tenant PATCH success count',
-        content: {'application/json': {schema: CountSchema}},
-      },
-    },
-  })
-  async patch(
-    @param.path.string('id') id: string,
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: getModelSchemaRef(Tenant, {partial: true}),
-        },
-      },
-    })
-    tenant: Partial<Tenant>,
-    @param.query.object('where', getWhereSchemaFor(Tenant)) where?: Where<Tenant>,
-  ): Promise<Count> {
-    return this.propertyRepository.tenants(id).patch(tenant, where);
   }
 
   @del('/properties/{id}/tenants', {
