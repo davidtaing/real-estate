@@ -4,6 +4,14 @@ import {Payment} from './payment.model';
 @model()
 export class RentPayment extends Entity {
   @property({
+    type: 'number',
+    id: true,
+    generated: false,
+    required: true,
+  })
+  paymentId: number;
+
+  @property({
     type: 'string',
     id: true,
     generated: false,
