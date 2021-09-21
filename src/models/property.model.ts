@@ -53,7 +53,7 @@ export class Property extends Entity {
   }
 }
 
-export interface PropertyRelations {sa
+export interface PropertyRelations {
   // describe navigational properties here
 }
 
