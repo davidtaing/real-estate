@@ -35,7 +35,7 @@ export class Payment extends Entity {
     type: 'string',
     required: true,
   })
-  propertyID: string;
+  propertyId: string;
 
   @property({
     type: 'string',
