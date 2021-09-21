@@ -1,8 +1,8 @@
 import {inject, Getter} from '@loopback/core';
-import {DefaultCrudRepository, repository, BelongsToAccessor} from '@loopback/repository';
+import {DefaultCrudRepository, repository, HasManyRepositoryFactory} from '@loopback/repository';
 import {DevelopmentDataSource} from '../datasources';
-import {Tenant, TenantRelations, Property} from '../models';
-import {PropertyRepository} from './property.repository';
+import {Tenant, TenantRelations, Payment} from '../models';
+import {PaymentRepository} from './payment.repository';
 
 export class TenantRepository extends DefaultCrudRepository<
   Tenant,
@@ -10,13 +10,12 @@ export class TenantRepository extends DefaultCrudRepository<
   TenantRelations
 > {
 
-  public readonly property: BelongsToAccessor<Property, typeof Tenant.prototype.tenancyId>;
+  public readonly payments: HasManyRepositoryFactory<Payment, typeof Tenant.prototype.tenancyId>;
 
   constructor(
-    @inject('datasources.development') dataSource: DevelopmentDataSource, @repository.getter('PropertyRepository') protected propertyRepositoryGetter: Getter<PropertyRepository>,
+    @inject('datasources.development') dataSource: DevelopmentDataSource, @repository.getter('PaymentRepository') protected paymentRepositoryGetter: Getter<PaymentRepository>,
   ) {
     super(Tenant, dataSource);
-    this.property = this.createBelongsToAccessorFor('property', propertyRepositoryGetter,);
-    this.registerInclusionResolver('property', this.property.inclusionResolver);
+    this.payments = this.createHasManyRepositoryFactoryFor('payments', paymentRepositoryGetter,);
   }
 }

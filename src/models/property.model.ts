@@ -1,4 +1,6 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, hasMany, model, property} from '@loopback/repository';
+import {Payment} from './payment.model';
+import {Tenant} from './tenant.model';
 
 @model()
 export class Property extends Entity {
@@ -40,13 +42,18 @@ export class Property extends Entity {
   })
   postcode: string;
 
+  @hasMany(() => Tenant)
+  tenants: Tenant[];
+
+  @hasMany(() => Payment)
+  payments: Payment[];
 
   constructor(data?: Partial<Property>) {
     super(data);
   }
 }
 
-export interface PropertyRelations {
+export interface PropertyRelations {sa
   // describe navigational properties here
 }
 
