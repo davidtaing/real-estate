@@ -1,15 +1,8 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Payment} from './payment.model';
 
 @model()
 export class RentPayment extends Entity {
-  @property({
-    type: 'string',
-    id: true,
-    generated: false,
-    required: true,
-  })
-  paymentNumber: string;
-
   @property({
     type: 'string',
     id: true,
@@ -30,6 +23,8 @@ export class RentPayment extends Entity {
   })
   paidTo: string;
 
+  @belongsTo(() => Payment, {name: 'payment'})
+  paymentNumber: number;
 
   constructor(data?: Partial<RentPayment>) {
     super(data);
