@@ -52,18 +52,18 @@ export class PropertyTenantController {
     },
   })
   async create(
-    @param.path.string('id') id: typeof Property.prototype.propId,
+    @param.path.string('id') id: typeof Property.prototype.propertyId,
     @requestBody({
       content: {
         'application/json': {
           schema: getModelSchemaRef(Tenant, {
             title: 'NewTenantInProperty',
-            exclude: ['tenancyId'],
+            exclude: ['tenantId'],
             optional: ['propertyId']
           }),
         },
       },
-    }) tenant: Omit<Tenant, 'tenancyId'>,
+    }) tenant: Omit<Tenant, 'tenantId'>,
   ): Promise<Tenant> {
     return this.propertyRepository.tenants(id).create(tenant);
   }

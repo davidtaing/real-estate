@@ -10,7 +10,7 @@ export class Property extends Entity {
     generated: true,
     required: true,
   })
-  propId: string;
+  propertyId: string;
 
   @property({
     type: 'string',

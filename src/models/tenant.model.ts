@@ -8,7 +8,7 @@ export class Tenant extends Entity {
     id: true,
     generated: true,
   })
-  tenancyId?: string;
+  tenantId?: string;
 
   @property({
     type: 'string',

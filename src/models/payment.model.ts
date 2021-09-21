@@ -13,7 +13,14 @@ export class Payment extends Entity {
     type: 'string',
     required: true,
   })
-  propId: string;
+  propertyId: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  tenantId: string;
+
   @property({
     type: 'date',
     required: true,

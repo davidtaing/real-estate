@@ -5,7 +5,7 @@ import {Payment, PaymentRelations} from '../models';
 
 export class PaymentRepository extends DefaultCrudRepository<
   Payment,
-  typeof Payment.prototype.invoiceNo,
+  typeof Payment.prototype.paymentNo,
   PaymentRelations
 > {
   constructor(

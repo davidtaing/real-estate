@@ -1,16 +1,16 @@
-import {inject, Getter} from '@loopback/core';
-import {DefaultCrudRepository, repository, HasManyRepositoryFactory} from '@loopback/repository';
+import {Getter, inject} from '@loopback/core';
+import {DefaultCrudRepository, HasManyRepositoryFactory, repository} from '@loopback/repository';
 import {DevelopmentDataSource} from '../datasources';
-import {Tenant, TenantRelations, Payment} from '../models';
+import {Payment, Tenant, TenantRelations} from '../models';
 import {PaymentRepository} from './payment.repository';
 
 export class TenantRepository extends DefaultCrudRepository<
   Tenant,
-  typeof Tenant.prototype.tenancyId,
+  typeof Tenant.prototype.tenantId,
   TenantRelations
 > {
 
-  public readonly payments: HasManyRepositoryFactory<Payment, typeof Tenant.prototype.tenancyId>;
+  public readonly payments: HasManyRepositoryFactory<Payment, typeof Tenant.prototype.tenantId>;
 
   constructor(
     @inject('datasources.development') dataSource: DevelopmentDataSource, @repository.getter('PaymentRepository') protected paymentRepositoryGetter: Getter<PaymentRepository>,
