@@ -18,7 +18,6 @@ export class Property extends Entity {
 
   @property({
     type: 'string',
-    required: true,
   })
   addressLn2: string;
 

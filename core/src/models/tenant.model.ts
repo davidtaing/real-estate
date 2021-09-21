@@ -13,13 +13,13 @@ export class Tenant extends Entity {
     type: 'string',
     required: true,
   })
-  fullName: string;
+  fullNames: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  preferredName: string;
+  preferredNames: string;
 
   @property({
     type: 'string',
