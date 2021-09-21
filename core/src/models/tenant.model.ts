@@ -5,7 +5,7 @@ export class Tenant extends Entity {
   @property({
     type: 'string',
     id: true,
-    generated: true,
+    defaultFn: 'uuid',
   })
   id?: string;
 
@@ -41,13 +41,11 @@ export class Tenant extends Entity {
 
   @property({
     type: 'string',
-    required: true,
   })
   homePhone: string;
 
   @property({
     type: 'string',
-    required: true,
   })
   workPhone: string;
 
