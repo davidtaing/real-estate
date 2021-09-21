@@ -6,7 +6,7 @@ import {PaymentRepository} from './payment.repository';
 
 export class RentPaymentRepository extends DefaultCrudRepository<
   RentPayment,
-  typeof RentPayment.prototype.paymentId,
+  typeof RentPayment.prototype.paymentNumber,
   RentPaymentRelations
 > {
 

@@ -3,13 +3,8 @@ import {Payment} from './payment.model';
 
 @model()
 export class RentPayment extends Entity {
-  @property({
-    type: 'number',
-    id: true,
-    generated: false,
-    required: true,
-  })
-  paymentId: number;
+  @belongsTo(() => Payment, {name: 'payment'})
+  paymentNumber: number;
 
   @property({
     type: 'string',
@@ -30,9 +25,6 @@ export class RentPayment extends Entity {
     required: true,
   })
   paidTo: string;
-
-  @belongsTo(() => Payment, {name: 'payment'})
-  paymentNumber: number;
 
   constructor(data?: Partial<RentPayment>) {
     super(data);
