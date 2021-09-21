@@ -11,6 +11,14 @@ export class RentPayment extends Entity {
   paymentId: string;
 
   @property({
+    type: 'string',
+    id: true,
+    generated: false,
+    required: true,
+  })
+  tenantId: string;
+
+  @property({
     type: 'date',
     required: true,
   })
