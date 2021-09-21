@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Tenant} from './tenant.model';
 
 @model({settings: {strict: false}})
 export class Payment extends Entity {
@@ -14,13 +15,6 @@ export class Payment extends Entity {
     required: true,
   })
   propId: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  tenantId: string;
-
   @property({
     type: 'date',
     required: true,
@@ -63,6 +57,8 @@ export class Payment extends Entity {
   })
   description: string;
 
+  @belongsTo(() => Tenant)
+  tenantId: string;
   // Define well-known properties here
 
   // Indexer property to allow additional data
