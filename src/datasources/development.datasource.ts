@@ -3,14 +3,13 @@ import {juggler} from '@loopback/repository';
 
 const config = {
   name: 'development',
-  connector: 'cassandra',
-  host: '172.17.0.3',
-  port: 9042,
-  user: '',
+  connector: 'postgresql',
+  url: '',
+  host: 'localhost',
+  port: 5432,
+  user: 'postgres',
   password: '',
-  database: 'development',
-  connectTimeout: 30000,
-  readTimeout: 30000
+  database: 'development'
 };
 
 // Observe application's life cycle to disconnect the datasource when
