@@ -21,7 +21,7 @@ export class Payment extends Entity {
   processDate: string;
 
   @property({
-    type: 'string',
+    type: 'date',
     required: true,
   })
   receivedDate: string;
