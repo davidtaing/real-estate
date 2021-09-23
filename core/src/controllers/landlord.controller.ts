@@ -129,17 +129,6 @@ export class LandlordController {
     await this.landlordRepository.updateById(id, landlord);
   }
 
-  @put('/landlords/{id}')
-  @response(204, {
-    description: 'Landlord PUT success',
-  })
-  async replaceById(
-    @param.path.string('id') id: string,
-    @requestBody() landlord: Landlord,
-  ): Promise<void> {
-    await this.landlordRepository.replaceById(id, landlord);
-  }
-
   @del('/landlords/{id}')
   @response(204, {
     description: 'Landlord DELETE success',
