@@ -5,7 +5,7 @@ export class Landlord extends Entity {
   @property({
     type: 'string',
     id: true,
-    generated: true,
+    defaultFn: 'uuid',
   })
   id?: string;
 
@@ -51,7 +51,6 @@ export class Landlord extends Entity {
 
   @property({
     type: 'string',
-    required: true,
   })
   addressLn2: string;
 
