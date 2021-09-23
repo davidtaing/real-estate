@@ -6,3 +6,5 @@ export * from './property-payment.controller';
 export * from './rent-payment-payment.controller';
 export * from './payment-payment-method.controller';
 export * from './payment-payment-category.controller';
+export * from './landlord.controller';
+export * from './property-landlord.controller';
