@@ -1,16 +1,17 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model({
-  settings: {idInjection: false, postgresql: {schema: 'public', table: 'paymentmethod'}}
+  settings: {idInjection: false, postgresql: {schema: 'public', table: 'paymentcategory'}}
 })
-export class Paymentmethod extends Entity {
+export class PaymentCategory extends Entity {
   @property({
-    type: 'string',
+    type: 'number',
     required: true,
+    scale: 0,
     id: 1,
-    postgresql: {columnName: 'code', dataType: 'text', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    postgresql: {columnName: 'code', dataType: 'smallint', dataLength: null, dataPrecision: null, dataScale: 0, nullable: 'NO'},
   })
-  code: string;
+  code: number;
 
   @property({
     type: 'string',
@@ -25,13 +26,13 @@ export class Paymentmethod extends Entity {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;
 
-  constructor(data?: Partial<Paymentmethod>) {
+  constructor(data?: Partial<PaymentCategory>) {
     super(data);
   }
 }
 
-export interface PaymentmethodRelations {
+export interface PaymentCategoryRelations {
   // describe navigational properties here
 }
 
-export type PaymentmethodWithRelations = Paymentmethod & PaymentmethodRelations;
+export type PaymentCategoryWithRelations = PaymentCategory & PaymentCategoryRelations;

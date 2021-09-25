@@ -3,7 +3,7 @@ import {Entity, model, property} from '@loopback/repository';
 @model({
   settings: {idInjection: false, postgresql: {schema: 'public', table: 'tenantpayment'}}
 })
-export class Tenantpayment extends Entity {
+export class TenantPayment extends Entity {
   @property({
     type: 'number',
     required: true,
@@ -110,13 +110,13 @@ export class Tenantpayment extends Entity {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;
 
-  constructor(data?: Partial<Tenantpayment>) {
+  constructor(data?: Partial<TenantPayment>) {
     super(data);
   }
 }
 
-export interface TenantpaymentRelations {
+export interface TenantPaymentRelations {
   // describe navigational properties here
 }
 
-export type TenantpaymentWithRelations = Tenantpayment & TenantpaymentRelations;
+export type TenantPaymentWithRelations = TenantPayment & TenantPaymentRelations;
