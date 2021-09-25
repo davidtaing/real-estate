@@ -1,3 +1,3 @@
-# Repositories
+# Models
 
-This directory contains code for repositories provided by this app.
+This directory contains code for models provided by this app.
