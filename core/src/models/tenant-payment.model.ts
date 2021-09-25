@@ -8,6 +8,7 @@ export class TenantPayment extends Entity {
     type: 'number',
     required: true,
     scale: 0,
+    id: 1,
     postgresql: {columnName: 'number', dataType: 'integer', dataLength: null, dataPrecision: null, dataScale: 0, nullable: 'NO'},
   })
   number: number;
